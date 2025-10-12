@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+
 const firebaseConfig = {
-  apiKey: import.meta.env.apiKey_key,
-  authDomain: import.meta.env.authDomain_key,
-  projectId: import.meta.env.projectId_key,
-  storageBucket: import.meta.env.storageBucket_key,
-  messagingSenderId: import.meta.env.messagingSenderId_key,
-  appId: import.meta.env.appId_key,
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+export default app;

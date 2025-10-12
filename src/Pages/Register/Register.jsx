@@ -1,12 +1,19 @@
 import useGetAuth from "../../Hooks/useGetAuth";
 
 const Register = () => {
-  const { handleSingUp } = useGetAuth();
+  const { handleSignUp } = useGetAuth();
+
   const handleSingUpForm = (e) => {
     e.preventDefault();
+
     const email = e.target.email.value;
     const password = e.target.password.value;
-    handleSingUp(email, password);
+
+    handleSignUp(email, password)
+      .then((result) => {
+        console.log("create successfully", result);
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
