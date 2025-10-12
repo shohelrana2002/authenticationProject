@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
+import useGetAuth from "../../Hooks/useGetAuth";
 
 const NavBar = () => {
+  const { user } = useGetAuth();
   const nav = [
     <li>
       <NavLink
@@ -68,12 +70,18 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{nav}</ul>
         </div>
         <div className="navbar-end gap-x-1">
-          <Link to={"/singIn"} className="btn btn-success">
-            Sing In
-          </Link>
-          <Link to={"/singUp"} className="btn btn-secondary">
-            Sing Up
-          </Link>
+          {user ? (
+            `${user.displayName}`
+          ) : (
+            <>
+              <Link to={"/singIn"} className="btn btn-success">
+                Sing In
+              </Link>
+              <Link to={"/singUp"} className="btn btn-secondary">
+                Sing Up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

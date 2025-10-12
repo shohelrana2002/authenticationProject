@@ -1,23 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import useGetAuth from "../../Hooks/useGetAuth";
 // Register
 const Login = () => {
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const { handleSingIn } = useGetAuth();
+  const handleSingInform = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    handleSingIn(email, password)
+      .then((result) => {
+        if (!result?.user?.emailVerified) {
+          return alert("Verified Your Account");
+        }
+
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <div>
-      {" "}
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body">
-            <fieldset className="fieldset">
-              <label className="label">Email</label>
-              <input type="email" className="input" placeholder="Email" />
-              <label className="label">Password</label>
-              <input type="password" className="input" placeholder="Password" />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-              </div>
-              <button className="btn btn-neutral mt-4">Login</button>
-            </fieldset>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
+
+        <form onSubmit={handleSingInform} className="space-y-5">
+          {/* Email Field */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Email</label>
+            <input
+              pattern="[a-z0-9._%+-]+@gmail\.com$"
+              title="Please enter a valid Gmail address (e.g. example@gmail.com)"
+              required
+              name="email"
+              type="email"
+              placeholder="example@gmail.com"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400 transition"
+            />
           </div>
+
+          {/* Password Field */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Password</label>
+            <div className="relative">
+              <input
+                type={show ? "text" : "password"}
+                name="password"
+                minLength={6}
+                required
+                placeholder="Enter your password"
+                className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400 transition"
+              />
+              <span
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer text-lg"
+                onClick={() => setShow(!show)}
+              >
+                {show ? "🤦‍♀️" : "🤷‍♀️"}
+              </span>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition"
+          >
+            Sign Up
+          </button>
+        </form>
+        <div className="my-3">
+          <p className="text-blue-700">
+            Are You New Plz ?
+            <span className="text-green-700 underline">
+              <Link to={"/singUp"}>Sing Up </Link>
+            </span>
+            Now
+          </p>
         </div>
       </div>
     </div>
