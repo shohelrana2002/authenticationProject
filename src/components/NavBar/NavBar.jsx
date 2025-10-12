@@ -1,10 +1,37 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const NavBar = () => {
   const nav = [
     <li>
-      <NavLink>Home</NavLink>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `px-4 py-2 rounded-lg font-semibold transition-all duration-300
+     ${
+       isActive
+         ? "bg-orange-500 text-white shadow-md"
+         : "text-gray-700 hover:bg-orange-100"
+     }`
+        }
+      >
+        Home
+      </NavLink>
+    </li>,
+    <li>
+      <NavLink
+        to="/about"
+        className={({ isActive }) =>
+          `px-4 py-2 rounded-lg font-semibold transition-all duration-300
+     ${
+       isActive
+         ? "bg-orange-500 text-white shadow-md"
+         : "text-gray-700 hover:bg-orange-100"
+     }`
+        }
+      >
+        About
+      </NavLink>
     </li>,
   ];
   return (
@@ -40,8 +67,13 @@ const NavBar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{nav}</ul>
         </div>
-        <div className="navbar-end">
-          <a className="btn">Button</a>
+        <div className="navbar-end gap-x-1">
+          <Link to={"/singIn"} className="btn btn-success">
+            Sing In
+          </Link>
+          <Link to={"/singUp"} className="btn btn-secondary">
+            Sing Up
+          </Link>
         </div>
       </div>
     </div>
