@@ -1,17 +1,22 @@
 import { useState } from "react";
 import useGetAuth from "../../Hooks/useGetAuth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { auth } from "../../AuthProvider/AuthProvider";
+import ImageUpload from "../../Hooks/ImageUpload";
+import { Bounce, toast } from "react-toastify";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const { handleSignUp, handleUpdateUser, handleSendEmailVerification } =
     useGetAuth();
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
-  const handleSingUpForm = (e) => {
+  const handleSingUpForm = async (e) => {
     e.preventDefault();
 
     const name = e.target.name.value;
+    const imageFile = e.target.image.files[0];
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -19,22 +24,34 @@ const Register = () => {
       return alert("Please provide a password with at least 6 characters");
     }
 
-    handleSignUp(email, password)
-      .then((result) => {
-        const updateData = {
-          displayName: name,
-        };
-        handleUpdateUser(auth.currentUser, updateData)
-          .then(() => {
-            handleSendEmailVerification(auth.currentUser)
-              .then(() => {
-                console.log(result.user);
-              })
-              .catch((err) => console.log(err));
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
+    try {
+      setLoading(true);
+      await handleSignUp(email, password);
+      const imageLink = await ImageUpload(imageFile);
+      const updateData = {
+        displayName: name,
+        photoURL: imageLink.data?.display_url,
+      };
+
+      await handleSendEmailVerification(auth.currentUser);
+      await handleUpdateUser(auth.currentUser, updateData);
+      toast(" Send You email  Verification Your Account", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      navigate("/singIn");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,9 +60,9 @@ const Register = () => {
         <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
 
         <form onSubmit={handleSingUpForm} className="space-y-5">
-          {/* Email Field */}
+          {/* name Field */}
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1">Name</label>
             <input
               required
               name="name"
@@ -54,6 +71,20 @@ const Register = () => {
               className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400 transition"
             />
           </div>
+          {/* imag Field */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Upload Your Image
+            </label>
+            <input
+              required
+              name="image"
+              type="file"
+              placeholder="Enter Your image"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400 transition"
+            />
+          </div>
+          {/* email field */}
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
@@ -90,10 +121,15 @@ const Register = () => {
 
           {/* Submit Button */}
           <button
+            disabled={loading}
             type="submit"
             className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition"
           >
-            Sign Up
+            {loading ? (
+              <span className="loading loading-spinner text-neutral"></span>
+            ) : (
+              " Sign Up"
+            )}
           </button>
         </form>
         <div className="my-3">

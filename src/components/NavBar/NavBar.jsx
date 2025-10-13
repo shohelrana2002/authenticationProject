@@ -1,9 +1,16 @@
-import React from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useGetAuth from "../../Hooks/useGetAuth";
+import { auth } from "../../AuthProvider/AuthProvider";
 
 const NavBar = () => {
-  const { user } = useGetAuth();
+  const { user, handleSingOut } = useGetAuth();
+
+  const navigate = useNavigate();
+  const handleSingOutButton = () => {
+    handleSingOut(auth).then(() => {
+      navigate("/singIn");
+    });
+  };
   const nav = [
     <li>
       <NavLink
@@ -71,7 +78,17 @@ const NavBar = () => {
         </div>
         <div className="navbar-end gap-x-1">
           {user ? (
-            `${user.displayName}`
+            <div className="flex gap-x-2 items-center">
+              <p> {user.displayName}</p>
+              <img
+                className="w-12 h-12 rounded-full"
+                src={user?.photoURL}
+                alt=""
+              />
+              <button className="btn btn-warning" onClick={handleSingOutButton}>
+                Sing out
+              </button>
+            </div>
           ) : (
             <>
               <Link to={"/singIn"} className="btn btn-success">
