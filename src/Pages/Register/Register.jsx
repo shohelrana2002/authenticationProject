@@ -48,7 +48,7 @@ const Register = () => {
       });
       navigate("/singIn");
     } catch (err) {
-      console.log(err);
+      alert(err.message);
     } finally {
       setLoading(false);
     }
@@ -105,7 +105,9 @@ const Register = () => {
               <input
                 type={show ? "text" : "password"}
                 name="password"
+                // pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$"
                 minLength={6}
+                title="Password must be 6-12 characters, include at least one letter and one number"
                 required
                 placeholder="Enter your password"
                 className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-400 transition"

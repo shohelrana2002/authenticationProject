@@ -11,38 +11,43 @@ const NavBar = () => {
       navigate("/singIn");
     });
   };
-  const nav = [
-    <li>
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          `px-4 py-2 rounded-lg font-semibold transition-all duration-300
+  const nav = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-lg font-semibold transition-all duration-300
      ${
        isActive
          ? "bg-orange-500 text-white shadow-md"
          : "text-gray-700 hover:bg-orange-100"
      }`
-        }
-      >
-        Home
-      </NavLink>
-    </li>,
-    <li>
-      <NavLink
-        to="/about"
-        className={({ isActive }) =>
-          `px-4 py-2 rounded-lg font-semibold transition-all duration-300
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/orders"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-lg font-semibold transition-all duration-300
      ${
        isActive
          ? "bg-orange-500 text-white shadow-md"
          : "text-gray-700 hover:bg-orange-100"
      }`
-        }
-      >
-        About
-      </NavLink>
-    </li>,
-  ];
+            }
+          >
+            Orders
+          </NavLink>
+        </li>
+      )}
+    </>
+  );
+
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">

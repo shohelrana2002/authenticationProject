@@ -18,7 +18,7 @@ export const auth = getAuth(app);
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const handleSignUp = (email, password) => {
     setLoading(true);
@@ -46,9 +46,11 @@ const AuthProvider = ({ children }) => {
     return () => unSubscribe();
   }, []);
   const handleSingOut = (auth) => {
+    setLoading(true);
     return signOut(auth);
   };
   const resetPassword = (email) => {
+    setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
   const provider = new GoogleAuthProvider();

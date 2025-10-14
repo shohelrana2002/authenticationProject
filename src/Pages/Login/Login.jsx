@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useGetAuth from "../../Hooks/useGetAuth";
 // Register
 const Login = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const { handleSingIn, resetPassword, handleGoogle } = useGetAuth();
@@ -18,7 +19,7 @@ const Login = () => {
         }
 
         console.log(result.user);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((err) => console.log(err));
   };
