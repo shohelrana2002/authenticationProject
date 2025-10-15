@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router";
+import NewsCardItem from "./NewsCardItem";
+import useGetAuth from "../../Hooks/useGetAuth";
 
 const NewsCard = () => {
+  const [categoryNews, setCategoryNews] = useState([]);
   const { id } = useParams(); //string
   const data = useLoaderData();
-
-  const [categoryNews, setCategoryNews] = useState([]);
 
   useEffect(() => {
     if (id == "0") {
@@ -17,18 +18,17 @@ const NewsCard = () => {
 
       setCategoryNews(filteredNews);
     } else {
-      // const filteredNews = data.filter((news) => news?.category_id == id);
-      // setCategoryNews(filteredNews);
+      const filteredNews = data.filter((news) => news?.category_id == id);
+      setCategoryNews(filteredNews);
     }
   }, [id, data]);
+  const { loading } = useGetAuth();
+  if (loading) return <p>Loading.....</p>;
 
   return (
     <div>
-      <p>News Card{categoryNews.length}</p>
       {categoryNews.map((news) => (
-        <div key={news.id}>
-          <h3>{news.title}</h3>
-        </div>
+        <NewsCardItem key={news.id} news={news} />
       ))}
     </div>
   );
