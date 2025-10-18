@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router";
 import { auth } from "../../AuthProvider/AuthProvider";
 import ImageUpload from "../../Hooks/ImageUpload";
 import { Bounce, toast } from "react-toastify";
+import Nav from "../../components/Nav/Nav";
+import UserLogin from "../../components/UserLogin/UserLogin";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -56,7 +58,10 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <div className="w-full md:max-w-7/12 bg-white rounded-2xl shadow-lg p-8">
+        <div className="flex flex-col  md:flex-row justify-between ">
+          <Nav />
+        </div>
         <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
 
         <form onSubmit={handleSingUpForm} className="space-y-5">

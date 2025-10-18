@@ -7,6 +7,7 @@ import Orders from "../Pages/Orders/Orders";
 import PrivateRoutes from "./PrivateRoutes";
 import NewsCard from "../components/NewsCard/NewsCard";
 import Details from "../components/NewsCard/Details";
+import Tv from "../Tv/Tv";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
         path: "/newsCard/:id",
         loader: () => fetch("/news.json"),
         Component: NewsCard,
+      },
+      {
+        path: "/tv",
+        Component: Tv,
       },
 
       {

@@ -34,6 +34,20 @@ const Nav = () => {
       </li>
       <li>
         <NavLink
+          to={"/tv"}
+          className={({ isActive }) =>
+            `font-semibold text-sm px-4 py-2 rounded-xl transition-all duration-300 ${
+              isActive
+                ? "bg-orange-500 text-white shadow-md"
+                : "text-gray-700 hover:bg-orange-100 hover:text-orange-600"
+            }`
+          }
+        >
+          Tv
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to={"/career"}
           className={({ isActive }) =>
             `font-semibold text-sm px-4 py-2 rounded-xl transition-all duration-300 ${

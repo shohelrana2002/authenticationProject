@@ -67,8 +67,10 @@ const NewsCardItem = ({ news }) => {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-x-1 ">
-            {news.tags.map((auth) => (
-              <p className=""> #{auth}</p>
+            {news.tags.map((auth, index) => (
+              <p key={index} className="">
+                #{auth}
+              </p>
             ))}
           </div>
         </div>

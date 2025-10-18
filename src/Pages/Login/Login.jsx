@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import useGetAuth from "../../Hooks/useGetAuth";
+import Nav from "../../components/Nav/Nav";
+import UserLogin from "../../components/UserLogin/UserLogin";
 // Register
 const Login = () => {
   const location = useLocation();
@@ -18,7 +20,6 @@ const Login = () => {
           return alert("Verified Your Account");
         }
 
-        console.log(result.user);
         navigate(location?.state || "/");
       })
       .catch((err) => console.log(err));
@@ -41,7 +42,10 @@ const Login = () => {
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+      <div className="w-full md:max-w-7/12 bg-white rounded-2xl shadow-lg p-8">
+        <div className="flex flex-col md:flex-row justify-between ">
+          <Nav />
+        </div>
         <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
         <form onSubmit={handleSingInform} className="space-y-5">
