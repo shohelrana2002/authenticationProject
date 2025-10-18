@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { BiStar } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import useGetAuth from "../../Hooks/useGetAuth";
@@ -11,7 +11,8 @@ const Home = () => {
   return (
     <>
       {loader.map((card, index) => (
-        <div
+        <Link
+          to={`/details/${card.id}`}
           key={index}
           className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
         >
@@ -85,7 +86,7 @@ const Home = () => {
               Today’s Pick
             </div>
           )}
-        </div>
+        </Link>
       ))}
     </>
   );

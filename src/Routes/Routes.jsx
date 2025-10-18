@@ -6,6 +6,7 @@ import Register from "../Pages/Register/Register";
 import Orders from "../Pages/Orders/Orders";
 import PrivateRoutes from "./PrivateRoutes";
 import NewsCard from "../components/NewsCard/NewsCard";
+import Details from "../components/NewsCard/Details";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,11 @@ export const router = createBrowserRouter([
         loader: () => fetch("/news.json"),
         Component: NewsCard,
       },
-
+      {
+        path: "/details/:id",
+        loader: () => fetch("/news.json"),
+        Component: Details,
+      },
       {
         path: "/orders",
         element: (

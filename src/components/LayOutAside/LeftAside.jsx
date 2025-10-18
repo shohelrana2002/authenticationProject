@@ -12,7 +12,13 @@ const LeftAside = () => {
   return (
     <div className="flex gap-y-3 flex-col">
       {category.map((cate) => (
-        <NavLink to={`/newsCard/${cate.id}`} className="btn" key={cate.id}>
+        <NavLink
+          to={`/newsCard/${cate.id}`}
+          className={({ isActive }) =>
+            isActive ? "text-white font-semibold btn bg-base-content " : "btn"
+          }
+          key={cate.id}
+        >
           {cate.name}
         </NavLink>
       ))}

@@ -1,12 +1,24 @@
 import { BiStar } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
+import { Link } from "react-router";
 
 const NewsCardItem = ({ news }) => {
-  const { title, thumbnail_url, author, rating, total_view, details, others } =
-    news;
+  const {
+    title,
+    thumbnail_url,
+    id,
+    author,
+    rating,
+    total_view,
+    details,
+    others,
+  } = news;
 
   return (
-    <div className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white">
+    <Link
+      to={`/details/${id}`}
+      className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
+    >
       <div className="flex flex-col md:flex-row gap-4">
         {/* Thumbnail */}
         <img
@@ -68,7 +80,7 @@ const NewsCardItem = ({ news }) => {
           Today’s Pick
         </div>
       )}
-    </div>
+    </Link>
   );
 };
 
