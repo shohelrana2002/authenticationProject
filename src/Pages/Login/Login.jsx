@@ -35,7 +35,7 @@ const Login = () => {
   const handleGoogleLoginFrom = () => {
     handleGoogle()
       .then(() => {
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((err) => console.log(err));
   };

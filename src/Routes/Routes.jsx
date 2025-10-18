@@ -15,10 +15,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: async () => {
-          const res = await fetch("/news.json");
-          return res.json();
-        },
+        loader: () => fetch("/news.json"),
         Component: Home,
       },
       {
@@ -26,11 +23,7 @@ export const router = createBrowserRouter([
         loader: () => fetch("/news.json"),
         Component: NewsCard,
       },
-      {
-        path: "/details/:id",
-        loader: () => fetch("/news.json"),
-        Component: Details,
-      },
+
       {
         path: "/orders",
         element: (
@@ -43,4 +36,13 @@ export const router = createBrowserRouter([
   },
   { path: "/singIn", Component: Login },
   { path: "/singUp", Component: Register },
+  {
+    path: "/details/:id",
+    loader: () => fetch("/news.json"),
+    element: (
+      <PrivateRoutes>
+        <Details />
+      </PrivateRoutes>
+    ),
+  },
 ]);

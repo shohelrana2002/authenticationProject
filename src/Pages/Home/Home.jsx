@@ -1,12 +1,9 @@
 import { Link, useLoaderData } from "react-router";
 import { BiStar } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
-import useGetAuth from "../../Hooks/useGetAuth";
 
 const Home = () => {
   const loader = useLoaderData();
-  const { loading } = useGetAuth();
-  if (loading) return <p>Loading.....</p>;
 
   return (
     <>
@@ -14,7 +11,7 @@ const Home = () => {
         <Link
           to={`/details/${card.id}`}
           key={index}
-          className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
+          // className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
         >
           <div className="flex flex-col md:flex-row gap-4">
             {/* Thumbnail */}

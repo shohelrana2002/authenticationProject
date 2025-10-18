@@ -1,4 +1,3 @@
-import React from "react";
 import useGetAuth from "../Hooks/useGetAuth";
 import { Navigate, useLocation } from "react-router";
 
@@ -9,7 +8,7 @@ const PrivateRoutes = ({ children }) => {
     return <p>Loading....</p>;
   }
   if (!user) {
-    return <Navigate state={location?.pathname} />;
+    return <Navigate to={"/singIn"} state={location?.pathname} replace />;
   }
 
   return children;

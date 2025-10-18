@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router";
 import NewsCardItem from "./NewsCardItem";
-import useGetAuth from "../../Hooks/useGetAuth";
 
 const NewsCard = () => {
   const [categoryNews, setCategoryNews] = useState([]);
@@ -22,15 +21,13 @@ const NewsCard = () => {
       setCategoryNews(filteredNews);
     }
   }, [id, data]);
-  const { loading } = useGetAuth();
-  if (loading) return <p>Loading.....</p>;
 
   return (
-    <div>
+    <>
       {categoryNews.map((news) => (
         <NewsCardItem key={news.id} news={news} />
       ))}
-    </div>
+    </>
   );
 };
 

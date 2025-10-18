@@ -17,14 +17,14 @@ const NewsCardItem = ({ news }) => {
   return (
     <Link
       to={`/details/${id}`}
-      className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
+      // className="p-4 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
     >
       <div className="flex flex-col md:flex-row gap-4">
         {/* Thumbnail */}
         <img
           src={thumbnail_url}
           alt={title}
-          className="w-full md:w-60 h-40 object-cover rounded-xl"
+          className="w-full md:w-60 h-full object-cover rounded-xl"
         />
 
         {/* Content */}
@@ -66,7 +66,7 @@ const NewsCardItem = ({ news }) => {
               </div>
             </div>
           </div>
-          <div className="flex gap-x-3 flex-col">
+          <div className="grid grid-cols-2 gap-x-1 ">
             {news.tags.map((auth) => (
               <p className=""> #{auth}</p>
             ))}
